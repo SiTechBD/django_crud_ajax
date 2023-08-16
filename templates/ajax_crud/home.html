@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+   <section class="mt-5">
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-12">
+               <h1 class="text-center">Data View Table</h1>
+               <button type="button" class="btn btn-outline-primary rounded-0 mb-3" id="add_btn">Add Record +</button>
+
+               <div id="flash"></div>
+               <!-- search form -->
+               <form method="get">
+                  {% csrf_token %}
+                  <input type="text" name="search" id="search" placeholder="live search" class="form-control border-primary mb-3 rounded-0">
+               </form>
+               <table class="table table-bordered border-primary">
+                  <thead class="">
+                     <tr>
+                        <th>Sl</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Image</th>
+                        <th>Action</th>
+                     </tr>
+                  </thead>
+                  <tbody id="tableData">
+                     
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </section>
+
+
+<!-- data add modal  -->
+ <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h1 class="modal-title fs-5" id="addModalLabel">Add Data Modal</h1>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body">
+         <form method="POST" enctype="multipart/form-data" id="add_form">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" name="name" class="form-control" id="name" required>
+            </div>
+
+            <div class="mb-3">
+               <label for="email" class="form-label">Email</label>
+               <input type="email" name="email" class="form-control" id="email" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="image" class="form-label">Image</label>
+              <input type="file" name="image" class="form-control" id="image" required>
+            </div>
+         </div>
+       <div class="modal-footer">
+         <button type="submit" class="btn btn-primary">Submit</button>
+       </div>
+      </form>
+     </div>
+   </div>
+ </div>
+
+
+
+<!-- data update modal  -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h1 class="modal-title fs-5" id="updateModalLabel">Update Data Modal</h1>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body">
+         <form method="POST" enctype="multipart/form-data" id="update_form">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" name="name" class="form-control" id="u_name" required>
+              <input type="hidden" name="u_id" id ="u_id">
+            </div>
+
+            <div class="mb-3">
+               <label for="email" class="form-label">Email</label>
+               <input type="email" name="email" class="form-control" id="u_email" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="image" class="form-label">Image</label>
+              <input type="file" name="image" class="form-control" id="u_image">
+            </div>
+         </div>
+       <div class="modal-footer">
+         <button type="submit" class="btn btn-primary">Update</button>
+       </div>
+      </form>
+     </div>
+   </div>
+ </div>
+
+
+
+
+
+
+
+
+ <!-- data delete modal  -->
+ <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Entry</h1>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body">
+         Do you want to delete permanently?
+         <form method="POST" id="delete_form">
+            {% csrf_token %}
+            <input type="hidden" name="delete_id" id="delete_id">
+         </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+         <button type="submit" class="btn btn-danger">Yes</button>
+       </div>
+      </form>
+     </div>
+   </div>
+ </div>
+{% endblock content %}
+   
